@@ -1,0 +1,33 @@
+type feedback {
+  date: String!
+  type: String!
+  email: String
+  message: String
+  name: String
+  rating: String
+}
+
+type Query {
+  getFeedback(type: String!, date: String!): feedback
+  listFeedbacks: feedbackConnection
+}
+
+type Mutation {
+  createFeedback(
+    date: String!
+    type: String
+    email: String
+    message: String
+    name: String
+    rating: String
+  ): feedback
+}
+
+type feedbackConnection {
+  items: [feedback]
+}
+
+type Subscription {
+  onCreateFeedback(type: String): feedback
+    @aws_subscribe(mutations: ["createFeedback"])
+}
